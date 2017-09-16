@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 //import * as BooksAPI from './BooksAPI'
+import ShelfChanger from './ShelfChanger'
 import './App.css'
 
 class SearchPage extends Component {
   
 
   render(){
-    const books = this.props.books;    
+    const books = this.props.books   
+    const onSearchBooks = this.props.onSearchBooks 
+    const moveBookToShelf = this.props.moveBookToShelf
     return(
           <div className="search-books">
             <div className="search-books-bar">
@@ -21,12 +24,26 @@ class SearchPage extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text" onChange={(event) => onSearchBooks(event.target.value)} placeholder="Search by title or author"/>
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {books.map(book => (
+                             <li key={book.id}>
+                                <div className="book">
+                                    <div className="book-top">
+                                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.img})`}}></div>
+                                       <ShelfChanger id={book.id} moveBookToShelf={moveBookToShelf}/>
+                                      </div>
+                                       <div className="book-title">{book.title}</div>
+                                       <div className="book-authors">{book.authors}</div>
+                                    </div>
+                             </li>
+                        ))}
+
+              </ol>
             </div>
           </div>
        
