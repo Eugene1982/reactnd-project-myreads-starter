@@ -18,11 +18,11 @@ class BookShelf extends Component {
                              <li key={book.id}>
                                 <div className="book">
                                     <div className="book-top">
-                                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.img})`}}></div>
-                                       <ShelfChanger id={book.id} moveBookToShelf={this.props.moveBookToShelf}/>
+                                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+                                       <ShelfChanger book={book} moveBookToShelf={this.props.moveBookToShelf}/>
                                       </div>
                                        <div className="book-title">{book.title}</div>
-                                       <div className="book-authors">{book.authors}</div>
+                                       <div className="book-authors">{book.authors.join('')}</div>
                                     </div>
                              </li>
                         ))}
