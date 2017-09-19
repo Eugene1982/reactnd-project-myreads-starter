@@ -10,11 +10,10 @@ class ShelfChanger extends Component {
                     {value: "none", text: "None"}]
      return(
           <div className="book-shelf-changer">
-                              <select onChange={(event) => moveBookToShelf(book, event.target.value)}>
-                                <option disabled value="none" >Move to...</option>
+                              <select onChange={(event) => moveBookToShelf(book, event.target.value)} value={book.shelf}>
+                                <option disabled value="no" >Move to...</option>
                                 {options.map((option) =>{
-                                     return option.value === book.shelf ? (<option value={option.value} selected>{option.text}</option>) :
-                                      (<option value={option.value}>{option.text}</option>)
+                                     return (<option key={option.value} value={option.value}>{option.text}</option>)
                                  }
                                 )}
                                
@@ -24,6 +23,5 @@ class ShelfChanger extends Component {
  }
 
 }
-
 
 export default ShelfChanger

@@ -22,22 +22,33 @@ class BooksApp extends Component {
 
   onSearchBooks = (terms) => {
        BooksAPI.search(terms, 100).then(books => {
-            this.setState({foundByTermBooks : books})
+                
+        if(books.error === undefined){ books.forEach(b=>{
+                  var foundBook = this.state.myReadBooks.filter((myBook) => myBook.id === b.id)
+                   if(foundBook.length > 0){
+                     b.shelf = foundBook[0].shelf
+                   }   
+                })
+                }else{
+                  books = []
+                }
+               this.setState({foundByTermBooks : books})
           })
   }
   
   moveBookToShelf = (book, shelf) => {
           BooksAPI.update(book, shelf).then(() => {
-               if(shelf==="none"){
+            book.shelf = shelf         
+            if(shelf==="none"){
                  //remove
                  this.setState(state => ({
-                      myReadBooks: this.state.myReadBooks.filter((b)=> b.id !== book.id)  
+                      myReadBooks: this.state.myReadBooks.filter((b)=> b.id !== book.id)
                   }))
               
                 } else {
-                  book.shelf = shelf      
                   this.setState(state => ({
-                        myReadBooks: update(this.state.myReadBooks, {$merge: [book]})
+                        myReadBooks: update(this.state.myReadBooks, {$merge: [book]}),
+                        foundByTermBooks: update(this.state.foundByTermBooks, {$merge: [book]})
                     }))
               }
          })

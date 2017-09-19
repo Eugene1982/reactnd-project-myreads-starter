@@ -3,7 +3,6 @@ import ShelfChanger from './ShelfChanger'
 
 class BookShelf extends Component {
     
-    
     render(){
       const {books, title, shelf} = this.props
   
