@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom';
 import './App.css'
 import SearchPage from './SearchPage'
 import BookShelf from './BookShelf'
-import update from 'react-addons-update'; 
 
 class BooksApp extends Component {
  
@@ -35,10 +34,20 @@ class BooksApp extends Component {
                this.setState({foundByTermBooks : books})
           })
   }
+
+  addoredit = (arr,  book, newShelf) => {
+    let copy = [...arr]
+    let index = arr.findIndex((b) => b.id === book.id)
+    if(index !== -1){
+           copy[index].shelf = newShelf
+    }else{
+         copy.push(book)
+    }
+        return copy
+  }
   
   moveBookToShelf = (book, shelf) => {
           BooksAPI.update(book, shelf).then(() => {
-            book.shelf = shelf         
             if(shelf==="none"){
                  //remove
                  this.setState(state => ({
@@ -47,8 +56,8 @@ class BooksApp extends Component {
               
                 } else {
                   this.setState(state => ({
-                        myReadBooks: update(this.state.myReadBooks, {$merge: [book]}),
-                        foundByTermBooks: update(this.state.foundByTermBooks, {$merge: [book]})
+                        myReadBooks: this.addoredit(this.state.myReadBooks, book, shelf),
+                        foundByTermBooks: this.addoredit(this.state.foundByTermBooks, book, shelf)
                     }))
               }
          })
