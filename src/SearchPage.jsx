@@ -4,7 +4,6 @@ import ShelfChanger from './ShelfChanger'
 import './App.css'
 
 class SearchPage extends Component {
-  
   render(){
     const books = this.props.books   
     const onSearchBooks = this.props.onSearchBooks 

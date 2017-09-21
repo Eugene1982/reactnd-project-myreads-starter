@@ -14,7 +14,7 @@ class BooksApp extends Component {
   }
   
   componentDidMount(){
-    BooksAPI.getAll().then(books => {
+     BooksAPI.getAll().then(books => {
                 this.setState({myReadBooks :books})
     })
   }
@@ -36,20 +36,20 @@ class BooksApp extends Component {
   }
 
   addoredit = (arr,  book, newShelf) => {
-    let copy = [...arr]
-    let index = arr.findIndex((b) => b.id === book.id)
-    if(index !== -1){
-           copy[index].shelf = newShelf
-    }else{
-         copy.push(book)
-    }
-        return copy
+          let copy = [...arr]
+          let index = arr.findIndex((b) => b.id === book.id)
+          if(index !== -1){
+                copy[index].shelf = newShelf
+          }else{
+                copy.push(book)
+          }
+              return copy
   }
   
   moveBookToShelf = (book, shelf) => {
           BooksAPI.update(book, shelf).then(() => {
             if(shelf==="none"){
-                 //remove
+                 //remove a book
                  this.setState(state => ({
                       myReadBooks: this.state.myReadBooks.filter((b)=> b.id !== book.id)
                   }))

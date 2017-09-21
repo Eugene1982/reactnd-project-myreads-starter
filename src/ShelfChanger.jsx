@@ -12,16 +12,15 @@ class ShelfChanger extends Component {
           <div className="book-shelf-changer">
                               <select onChange={(event) => moveBookToShelf(book, event.target.value)} value={book.shelf}>
                                 <option disabled value="no" >Move to...</option>
-                                {options.map((option) =>{
+                                {
+                                  options.map((option) =>{ 
                                      return (<option key={option.value} value={option.value}>{option.text}</option>)
+                                   })
                                  }
-                                )}
-                               
                               </select>
           </div>
      )
  }
-
 }
 
 export default ShelfChanger
